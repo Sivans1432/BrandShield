@@ -42,7 +42,7 @@ services:
       mongodb:
         condition: service_healthy
     environment:
-      - MONGO_URI=mongodb://mongodb:27017
+      - MONGO_URI=mongodb+srv://nagasiva143227_db_user:<udgLzpQFj1cUlwAa>@cluster0.phhv1em.mongodb.net/?appName=Cluster0
       - DB_NAME=brandshield_ai
       - ENVIRONMENT=production
       - JWT_SECRET_KEY=${JWT_SECRET_KEY:-brandshield_ai_secure_jwt_secret_key_2026_soc_ops}

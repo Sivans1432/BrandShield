@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "BrandShield AI"
     VERSION: str = "1.0.0"
     API_V1_STR: str = "/api"
-    MONGO_URI: str = os.getenv("MONGO_URI", "mongodb://localhost:27017")
+    MONGO_URI: str = os.getenv("MONGO_URI", "mongodb+srv://nagasiva143227_db_user:<udgLzpQFj1cUlwAa>@cluster0.phhv1em.mongodb.net/?appName=Cluster0")
     DB_NAME: str = os.getenv("DB_NAME", "brandshield_ai")
     ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")
     CORS_ORIGINS: list[str] = ["*"]

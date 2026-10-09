@@ -27,7 +27,7 @@ Focused specifically on **Social Media Monitoring** and **App Store Monitoring**
 
 - **Frontend**: React (Vite), Tailwind CSS, Lucide React, Recharts, Axios, React Router v7
 - **Backend**: Python 3.14, FastAPI, Motor (Async MongoDB), PyMongo, RapidFuzz, Pillow (PIL), Pydantic v2
-- **Database**: MongoDB (live connection at `mongodb://localhost:27017`)
+- **Database**: MongoDB (live connection at `mongodb+srv://nagasiva143227_db_user:<udgLzpQFj1cUlwAa>@cluster0.phhv1em.mongodb.net/?appName=Cluster0`)
 - **Architecture**: Microservice-ready REST API with reverse proxying and reactive polling updates
 
 ---
