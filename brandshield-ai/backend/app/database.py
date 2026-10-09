@@ -11,7 +11,7 @@ class Database:
 db_instance = Database()
 
 async def connect_to_mongo():
-    logger.info(f"Connecting to MongoDB at {settings.MONGO_URI}...")
+    logger.info("Connecting to MongoDB...")
     try:
         db_instance.client = AsyncIOMotorClient(settings.MONGO_URI, serverSelectionTimeoutMS=3000)
         db_instance.db = db_instance.client[settings.DB_NAME]
@@ -39,17 +39,23 @@ async def connect_to_mongo():
         await db_instance.db.email_verifications.create_index("token_hash", unique=True)
         
         # Ensure default Analyst user exists
-        await ensure_default_user(db_instance.db)
+        if settings.ENVIRONMENT.lower() != "production":
+            await ensure_default_user(db_instance.db)
     except Exception as e:
-        logger.error(f"Error connecting to MongoDB: {e}. Will use fallback or retry on request.")
+        logger.error("Error connecting to MongoDB.", exc_info=True)
+        if settings.ENVIRONMENT.lower() == "production":
+            raise
 
 async def ensure_default_user(db):
     try:
         import bcrypt
         from datetime import datetime, timezone
+        if not settings.DEMO_USER_PASSWORD:
+            logger.info("Skipping default analyst creation; configure DEMO_USER_PASSWORD to enable it.")
+            return
         user = await db.users.find_one({"email": "analyst@brandshield.ai"})
         if not user:
-            pw_hash = bcrypt.hashpw(b"BrandShield@2026", bcrypt.gensalt()).decode("utf-8")
+            pw_hash = bcrypt.hashpw(settings.DEMO_USER_PASSWORD.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
             default_doc = {
                 "username": "secops_analyst",
                 "email": "analyst@brandshield.ai",

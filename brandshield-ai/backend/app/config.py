@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     MONGO_URI: str = os.getenv("MONGO_URI", "mongodb://localhost:27017")
     DB_NAME: str = os.getenv("DB_NAME", "brandshield_ai")
     ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")
-    CORS_ORIGINS: list[str] = ["*"]
+    CORS_ORIGINS: str = os.getenv("CORS_ORIGINS", "http://localhost:5173")
 
     # Meta Graph & Instagram API Configuration
     INSTAGRAM_ACCESS_TOKEN: str = os.getenv("INSTAGRAM_ACCESS_TOKEN", "")
@@ -36,9 +36,10 @@ class Settings(BaseSettings):
     PLATFORM_SANDBOX_MODE: bool = os.getenv("PLATFORM_SANDBOX_MODE", "true").lower() in ("true", "1", "yes")
 
     # Authentication & JWT Configuration
-    JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "brandshield_ai_secure_jwt_secret_key_2026_soc_ops")
+    JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "local-development-only")
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "10080"))
+    DEMO_USER_PASSWORD: str = os.getenv("DEMO_USER_PASSWORD", "")
 
     # Google OAuth 2.0 Credentials
     GOOGLE_CLIENT_ID: str = os.getenv("GOOGLE_CLIENT_ID", "")

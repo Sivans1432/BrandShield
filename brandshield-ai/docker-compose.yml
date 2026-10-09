@@ -45,8 +45,9 @@ services:
       - MONGO_URI=mongodb://mongodb:27017
       - DB_NAME=brandshield_ai
       - ENVIRONMENT=production
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-brandshield_ai_secure_jwt_secret_key_2026_soc_ops}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:?Set JWT_SECRET_KEY in your environment or .env file}
       - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES:-10080}
+      - DEMO_USER_PASSWORD=${DEMO_USER_PASSWORD:-}
       - FRONTEND_URL=${FRONTEND_URL:-http://localhost}
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}

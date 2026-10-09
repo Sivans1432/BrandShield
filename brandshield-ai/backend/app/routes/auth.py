@@ -477,10 +477,12 @@ async def request_password_reset(payload: ForgotPasswordRequest, db = Depends(ge
     }
 
     # In development mode without SMTP configured, include token for convenience and testing
-    if not sent_via_smtp:
+    if not sent_via_smtp and settings.ENVIRONMENT.lower() != "production":
         response_payload["dev_reset_url"] = reset_url
         response_payload["dev_token"] = token
         response_payload["dev_notice"] = "SMTP is not configured in backend/.env; using development reset URL."
+    elif not sent_via_smtp:
+        logger.warning("Password reset email delivery failed in production; development reset token was suppressed.")
 
     return response_payload
 

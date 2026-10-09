@@ -41,6 +41,12 @@ logger = logging.getLogger("brandshield.main")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Initializing BrandShield AI Backend...")
+    if settings.ENVIRONMENT.lower() == "production" and (
+        settings.JWT_SECRET_KEY == "local-development-only"
+        or settings.JWT_SECRET_KEY.startswith("replace-with-")
+        or len(settings.JWT_SECRET_KEY) < 32
+    ):
+        raise RuntimeError("JWT_SECRET_KEY must be configured with a unique secret in production.")
     await connect_to_mongo()
     
     # Check if database has any brands; if empty, automatically seed initial demo data
@@ -68,7 +74,7 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[origin.strip() for origin in settings.CORS_ORIGINS.split(",") if origin.strip()],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

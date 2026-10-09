@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 const api = axios.create({
   baseURL: API_BASE,
@@ -143,7 +143,7 @@ export const exportAuditReport = (params) => api.get('/reports/export', { params
 export const getUserProfile = () => api.get('/user/profile');
 export const updateUserProfile = (data) => api.put('/user/profile', data);
 export const createUserAccount = (data) => api.post('/user/create-account', data);
-export const forgotPassword = (data) => api.post('/user/forgot-password', data);
+export const forgotPassword = (data) => api.post('/auth/forgot-password', data);
 
 // Enterprise Authentication & User Management (BrandShield AI)
 export const loginUser = (data) => api.post('/auth/login', data);

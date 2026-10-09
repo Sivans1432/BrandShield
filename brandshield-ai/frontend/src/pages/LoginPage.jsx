@@ -166,12 +166,6 @@ export default function LoginPage() {
     }
   };
 
-  // Demo fill helper
-  const fillDemoCredentials = () => {
-    setLoginEmail('analyst@brandshield.ai');
-    setLoginPassword('BrandShield@2026');
-  };
-
   return (
     <div className="min-h-screen bg-[#050814] text-slate-100 flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
       {/* Top Navigation Brand Header */}
@@ -409,7 +403,7 @@ export default function LoginPage() {
                           required
                           value={loginEmail}
                           onChange={(e) => setLoginEmail(e.target.value)}
-                          placeholder="analyst@brandshield.ai"
+                          placeholder="you@company.com"
                           className="w-full pl-9 pr-3 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition"
                         />
                       </div>
@@ -471,18 +465,6 @@ export default function LoginPage() {
                       )}
                     </button>
                   </form>
-
-                  {/* Seeded Credentials helper */}
-                  <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
-                    <span>Default SOC Login:</span>
-                    <button
-                      type="button"
-                      onClick={fillDemoCredentials}
-                      className="text-cyan-400 hover:text-cyan-300 font-semibold underline decoration-dotted"
-                    >
-                      Auto-fill Analyst Credentials
-                    </button>
-                  </div>
 
                   {/* Toggle to Create Account */}
                   <div className="pt-2 text-center text-xs text-slate-400">
@@ -668,7 +650,7 @@ export default function LoginPage() {
                           required
                           value={forgotEmail}
                           onChange={(e) => setForgotEmail(e.target.value)}
-                          placeholder="e.g. analyst@brandshield.ai"
+                          placeholder="e.g. you@company.com"
                           className="w-full pl-9 pr-3 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition"
                         />
                       </div>

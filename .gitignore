@@ -1,0 +1,29 @@
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+!**/.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Node and build output
+node_modules/
+dist/
+dist-ssr/
+
+# Local/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

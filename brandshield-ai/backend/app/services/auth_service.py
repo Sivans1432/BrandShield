@@ -122,7 +122,10 @@ async def require_current_user(
 def send_email_notification(to_email: str, subject: str, html_content: str, text_content: str) -> bool:
     """Sends email via configured SMTP server or logs to console in development."""
     if not settings.SMTP_HOST or not settings.SMTP_USER or not settings.SMTP_PASSWORD:
-        logger.info(f"\n[DEV EMAIL DISPATCH SIMULATOR]\nTo: {to_email}\nSubject: {subject}\nContent:\n{text_content}\n")
+        if settings.ENVIRONMENT.lower() == "production":
+            logger.error("SMTP is not configured; outbound email was not sent.")
+        else:
+            logger.info(f"\n[DEV EMAIL DISPATCH SIMULATOR]\nTo: {to_email}\nSubject: {subject}\nContent:\n{text_content}\n")
         return False
         
     try:

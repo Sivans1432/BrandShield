@@ -5,7 +5,7 @@ import logging
 from pathlib import Path
 from datetime import datetime
 from typing import List, Optional
-from fastapi import APIRouter, HTTPException, Depends, Query, UploadFile, File
+from fastapi import APIRouter, HTTPException, Depends, Query, UploadFile, File, Request
 from bson import ObjectId
 from app.database import get_db
 from app.models.schemas import (
@@ -209,7 +209,7 @@ async def delete_official_asset(id: str, asset_id: str):
 # --- LOGO UPLOAD & MULTI-STEP WIZARD SYNC ---
 
 @router.post("/upload-logo")
-async def upload_brand_logo(file: UploadFile = File(...)):
+async def upload_brand_logo(request: Request, file: UploadFile = File(...)):
     """Uploads and saves a brand logo persistently to static storage."""
     allowed_exts = {".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif"}
     ext = os.path.splitext(file.filename or "")[1].lower()
@@ -231,7 +231,7 @@ async def upload_brand_logo(file: UploadFile = File(...)):
     logo_url = f"/static/logos/{safe_name}"
     return {
         "status": "success",
-        "logo_url": f"http://127.0.0.1:8000{logo_url}",
+        "logo_url": f"{str(request.base_url).rstrip('/')}{logo_url}",
         "relative_url": logo_url,
         "filename": safe_name
     }
@@ -374,4 +374,3 @@ async def sync_brand_wizard(id: str, wizard_in: BrandWizardSyncRequest):
         "brand": serialized_brand,
         "official_assets": [serialize_doc(a) for a in fresh_assets]
     }
-
