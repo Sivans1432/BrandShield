@@ -42,8 +42,8 @@ services:
       mongodb:
         condition: service_healthy
     environment:
-      - MONGO_URI=mongodb+srv://nagasiva143227_db_user:<udgLzpQFj1cUlwAa>@cluster0.phhv1em.mongodb.net/?appName=Cluster0
-      - DB_NAME=nagasiva143227_db_user
+      - MONGO_URI=${MONGO_URI:-mongodb://mongodb:27017}
+      - DB_NAME=${DB_NAME:-brandshield_ai}
       - ENVIRONMENT=production
       - JWT_SECRET_KEY=${JWT_SECRET_KEY:?Set JWT_SECRET_KEY in your environment or .env file}
       - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES:-10080}

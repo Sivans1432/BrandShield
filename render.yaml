@@ -3,7 +3,7 @@ services:
     name: brandshield-api
     runtime: python
     plan: free
-    rootDir: brandshield-ai/backend
+    rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
@@ -26,7 +26,7 @@ services:
   - type: web
     name: brandshield-web
     runtime: static
-    rootDir: brandshield-ai/frontend
+    rootDir: frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
     envVars:
