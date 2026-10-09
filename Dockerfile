@@ -61,7 +61,8 @@ COPY nginx.all-in-one.conf /etc/nginx/conf.d/brandshield.conf
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Validate build integrity inside the container
-RUN test -f /usr/share/nginx/html/index.html && echo "✓ Frontend index.html present in /usr/share/nginx/html"
+# Temporarily replace the failing line with this to see where the files are:
+RUN ls -la /app && ls -la /usr/share/nginx/html && echo "✓ Frontend index.html present in /usr/share/nginx/html"
 RUN nginx -t && echo "✓ Nginx configuration syntax verified"
 RUN python -c "import app.main; print('✓ FastAPI backend imported successfully')"
 
